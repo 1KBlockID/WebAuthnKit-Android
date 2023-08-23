@@ -1,5 +1,6 @@
 package webauthnkit.core.authenticator.internal.session
 
+import android.text.format.DateFormat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -84,11 +85,12 @@ class InternalMakeCredentialSession(
 
             val keyName = try {
                 WAKLogger.d(TAG, "makeCredential - requestUserConsent")
-                ui.requestUserConsent(
-                    rpEntity                = rpEntity,
-                    userEntity              = userEntity,
-                    requireUserVerification = requireUserVerification
-                )
+//                ui.requestUserConsent(
+//                    rpEntity                = rpEntity,
+//                    userEntity              = userEntity,
+//                    requireUserVerification = requireUserVerification
+//                )
+                getDefaultKeyName(userEntity.name)
             } catch(e: CancelledException) {
                 WAKLogger.d(TAG, "makeCredential - requestUserConsent failure: $e")
                 stop(ErrorReason.Cancelled)
@@ -122,7 +124,7 @@ class InternalMakeCredentialSession(
 
             credentialStore.deleteAllCredentialSources(
                 rpId       = rpId,
-                userHandle = userHandle
+                userName   = userEntity.name
             )
 
             WAKLogger.d(TAG, "makeCredential - create new key pair")
@@ -249,4 +251,8 @@ class InternalMakeCredentialSession(
         return ByteArrayUtil.fromUUID(UUID.randomUUID())
     }
 
+    private fun getDefaultKeyName(username: String): String {
+        val date = DateFormat.format("yyyyMMdd", Calendar.getInstance())
+        return "$username($date)"
+    }
 }

@@ -1,1 +1,19 @@
 include ':app', ':webauthnkit'
+rootProject.name = "WebAuthnKit-Android"
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven {
+            url 'https://nexus-1k-nonprod.1kosmos.net/repository/maven-releases/'
+            credentials {
+                username = "developer"
+                password = "q5k#06ZcjSo#"
+            }
+        }
+        maven { url "https://jitpack.io" }
+    }
+}

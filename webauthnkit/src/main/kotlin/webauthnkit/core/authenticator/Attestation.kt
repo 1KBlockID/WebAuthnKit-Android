@@ -37,7 +37,7 @@ class AttestationObject(
         if (this.authData.attestedCredentialData != null) {
            return false
         }
-        if (this.authData.attestedCredentialData!!.aaguid.any { it != 0x00.toByte() }) {
+        if (this.authData.attestedCredentialData?.aaguid?.any { it != 0x00.toByte() }!!) {
             return false
         }
         return true

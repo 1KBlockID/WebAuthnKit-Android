@@ -3,8 +3,8 @@ package webauthnkit.core.authenticator.internal.key
 import android.annotation.TargetApi
 import android.content.Context
 import android.os.Build
+import webauthnkit.core.authenticator.COSEAlgorithmIdentifier
 import webauthnkit.core.util.WAKLogger
-import webauthnkit.core.authenticator.*
 
 @ExperimentalUnsignedTypes
 class KeySupportChooser(private val context: Context) {
