@@ -1,8 +1,8 @@
 package webauthnkit.core.authenticator
 
-import webauthnkit.core.util.WAKLogger
 import webauthnkit.core.util.ByteArrayUtil
 import webauthnkit.core.util.CBORWriter
+import webauthnkit.core.util.WAKLogger
 
 object COSEKeyFieldType {
     const val kty:    Int =  1
@@ -120,7 +120,7 @@ class COSEKeyRSA(
 }
 
 @ExperimentalUnsignedTypes
-class AttestedCredentialData(
+public class AttestedCredentialData(
     val aaguid:              ByteArray,
     val credentialId:        ByteArray,
     val credentialPublicKey: COSEKey
@@ -216,8 +216,7 @@ class AuthenticatorData(
     }
 
     fun toBytes(): ByteArray? {
-
-        assert(userPresent != userVerified)
+//        assert(userPresent != userVerified)
 
         val flags: Byte = AuthenticatorDataFlags(
             userPresent               = userPresent,

@@ -36,6 +36,15 @@ class CredentialStore(context: Context) {
         }
     }
 
+    fun loadAllCredentialSources(rpId: String, userName: String): List<PublicKeyCredentialSource> {
+        WAKLogger.d(TAG, "loadAllCredentialSource")
+        var list = loadAllCredentialSources(rpId)
+        list = list.filter {
+            it.otherUI.contains(userName)
+        }
+        return list
+    }
+
     fun deleteAllCredentialSources(rpId: String) {
         WAKLogger.d(TAG, "deleteAllCredentialSource")
         db.deleteByRpId(rpId)
@@ -44,6 +53,14 @@ class CredentialStore(context: Context) {
     fun deleteAllCredentialSources(rpId: String, userHandle: ByteArray) {
         WAKLogger.d(TAG, "deleteAllCredentialSource")
         loadAllCredentialSources(rpId, userHandle).forEach {
+            val key = ByteArrayUtil.toHex(it.id)
+            db.delete(key)
+        }
+    }
+
+    fun deleteAllCredentialSources(rpId: String, userName: String) {
+        WAKLogger.d(TAG, "deleteAllCredentialSource")
+        loadAllCredentialSources(rpId, userName).forEach {
             val key = ByteArrayUtil.toHex(it.id)
             db.delete(key)
         }
