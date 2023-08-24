@@ -5,11 +5,11 @@ static def releaseRepositoryUrl() {
 }
 
 static def getRepositoryUsername() {
-    return "gaurav.rane@1kosmos.com"
+    return ""
 }
 
 static def getRepositoryPassword() {
-    return "gaurav.rane@1kosmos.com"
+    return ""
 }
 
 task androidSourcesJar(type: Jar) {
